@@ -2910,28 +2910,28 @@ program markdoc
                         
                         if !missing("`noisily'") {
                             /*di _n(2) "{title:Creating Temp file}" _n          ///
-                            `"{p}$pandoc -s --mathjax `md' -o `real'.html"' */
+                            `"{p}$pandoc --mathjax `md' -o `real'.html"' */
                             
                             di _n(2) "{title:Creating Temp file}" _n            ///
-                            `"{p}$pandoc -s `md' -o `real'.html"'
+                            `"{p}$pandoc `md' -o `real'.html"'
                         }   
                     
-                        //shell "$pandoc" -S --mathjax "`md'" -o "`real'.html"
-                        shell "$pandoc" -S "`md'" -o "`real'.html"
+                        //shell "$pandoc" - --mathjax "`md'" -o "`real'.html"
+                        shell "$pandoc" "`md'" -o "`real'.html"
                         quietly  copy "`real'.html" "`html'", replace public
                     }
                     else {
                         if !missing("`noisily'") {
                             /*di _n(2) "{title:Creating Temp file}" _n          ///
-                            ///`"{p}$pandoc -s --mathjax `md' -o `convert'"'
-                            `"{p}$pandoc -s --mathjax `md' -o `output'"' _n */
+                            ///`"{p}$pandoc --mathjax `md' -o `convert'"'
+                            `"{p}$pandoc --mathjax `md' -o `output'"' _n */
                             
                             di _n(2) "{title:Creating Temp file}" _n            ///
-                            `"{p}$pandoc -s `md' -o `output'"' _n
+                            `"{p}$pandoc `md' -o `output'"' _n
                         }   
                 
-                        //shell "$pandoc" -s --mathjax "`md'" -o "`output'"
-                        shell "$pandoc" -s "`md'" -o "`output'"
+                        //shell "$pandoc" --mathjax "`md'" -o "`output'"
+                        shell "$pandoc" "`md'" -o "`output'"
                         quietly  copy "`output'" "`html'", replace public
                     }
                     
@@ -3141,9 +3141,9 @@ program markdoc
                 if !missing("`toc'") local toc "--toc"
                 
                 if !missing("`template'") {
-                    if "`export'" == "docx" local reference -S --reference-docx=`template'
-                    if "`export'" == "odt"  local reference -S --reference-odt==`template'
-                    if "`export'" == "epub" local reference -S --epub-stylesheet==`template'
+                    if "`export'" == "docx" local reference --reference-doc=`template'
+                    if "`export'" == "odt"  local reference --reference-odt==`template'
+                    if "`export'" == "epub" local reference --epub-stylesheet==`template'
                 }
                 
                 if missing("`template'") & "`export'" == "docx" {
@@ -3159,7 +3159,7 @@ program markdoc
                         if "`c(os)'" == "Windows" {
                             local template : subinstr local template "/" "\", all
                         }
-                        local reference -S --reference-docx="`template'"
+                        local reference --reference-doc="`template'"
                     }       
                 }
               
@@ -3232,8 +3232,8 @@ program markdoc
 
                     local mathjax --mathjax
                     
-                    if "`export'" == "dzslide" local mathjax -s --mathjax -i -t dzslides
-                    if "`export'" == "slidy" local mathjax -s --mathjax -i -t slidy
+                    if "`export'" == "dzslide" local mathjax --mathjax -i -t dzslides
+                    if "`export'" == "slidy" local mathjax --mathjax -i -t slidy
                                         
                     if missing("`mini'") & "`noisily'" == "noisily" {
                         di _n(2) "{title:Executing Pandoc Command}" _n
